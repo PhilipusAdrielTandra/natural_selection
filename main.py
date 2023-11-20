@@ -1,34 +1,30 @@
-# Example file showing a basic pygame "game loop"
 import pygame
 import math
 import random
 import sys
 import os
 from moth import Moth
+from food import Food
+import neat
 
-# pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
-
+food = Food()
 moth = Moth()
 
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # fill the screen with a color to wipe away anything from last frame
     screen.fill("white")
+    food.draw(screen)
     moth.draw(screen)
-    # RENDER YOUR GAME HERE
-
-    # flip() the display to put your work on screen
+    moth.move()
     pygame.display.flip()
 
-    clock.tick(60)  # limits FPS to 60
+    clock.tick(60) 
 
 pygame.quit()
