@@ -3,6 +3,7 @@ import math
 import random
 from moth import Moth
 from food import Food
+import neat
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
