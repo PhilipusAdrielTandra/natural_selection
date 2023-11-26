@@ -6,13 +6,15 @@ class Moth:
     def __init__(self):
         self.x = random.randint(1, 1280)
         self.y = random.randint(1, 720)
-        self.angle = random.uniform(0, 2 * math.pi)
+        self.angle = 0
         self.velocity = 3
         self.radius = 8
 
     def draw(self, win):
         pygame.draw.circle(win, (0, 0, 0), (self.x, self.y), self.radius)
+        pygame.draw.circle(win, (0, 0, 0), (self.x + 8, self.y + 3), 4)
 
+    # RANDOM MOVEMENT
     def move(self):
         if self.x <= 0 or self.x >= 1280:
             self.angle = math.pi - self.angle
@@ -21,3 +23,39 @@ class Moth:
 
         self.x += self.velocity * math.cos(self.angle)
         self.y += self.velocity * math.sin(self.angle)
+
+    # UNCOMMENT FOR TESTING
+    # def move(self):
+    #     sin_a = math.sin(self.angle)
+    #     cos_a = math.cos(self.angle)
+    #     keys = pygame.key.get_pressed()
+    #     if keys[pygame.K_a]:
+    #         self.x += self.velocity * cos_a
+    #         self.y += self.velocity * sin_a
+    #     if keys[pygame.K_d]:
+    #         self.x += -self.velocity * cos_a
+    #         self.y += -self.velocity * sin_a
+    #     if keys[pygame.K_s]:
+    #         self.x += self.velocity * sin_a
+    #         self.y += -self.velocity * cos_a
+    #     if keys[pygame.K_w]:
+    #         self.x += -self.velocity * sin_a
+    #         self.y += self.velocity * cos_a
+    #     if keys[pygame.K_LEFT]:
+    #         self.angle -= 0.03
+    #     if keys[pygame.K_RIGHT]:
+    #         self.angle += 0.03
+
+    def move_forward(self):
+        self.x = self.x + self.speed * math.cos(self.angle * math.pi / 180)
+        self.y = self.y + self.speed * math.sin(self.angle * math.pi / 180)
+        if self.energy > 0:
+            self.energy -= self.move_cost 
+
+    def turn_left(self):
+        self.angle -= 5
+        self.angle %= 360
+            
+    def turn_right(self):
+        self.angle += 5
+        self.angle %= 360

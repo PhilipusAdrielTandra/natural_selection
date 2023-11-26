@@ -9,33 +9,30 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
-food = Food()
-moths = [Moth()]
+foods = [Food() for i in range(10)]
+moths = [Moth() for i in range(5)]
 
+nets = []
+ge = []
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            moths.append(Moth())
-
     screen.fill("white")
-    food.draw(screen)
 
-    for i, moth1 in enumerate(moths):
-        moth1.draw(screen)
-        moth1.move()
+    for food in foods:
+        food.draw(screen)
 
-        if math.hypot(moth1.x - food.x, moth1.y - food.y) < moth1.radius + food.size[0]/2:
-            food.eaten = True
+    # Collision
+    for moth in moths:
+        moth.draw(screen)
+        moth.move()
 
-        for j, moth2 in enumerate(moths):
-            if i != j:
-                if math.hypot(moth1.x - moth2.x, moth1.y - moth2.y) < moth1.radius + moth2.radius:
-                    pass
+        for food in foods:
+            if math.hypot(moth.x - food.x, moth.y - food.y) < moth.radius + food.size:
+                food.eaten = True
 
-    if food.eaten:
-        food = Food()
+    foods = [food for food in foods if not food.eaten]
 
     pygame.display.flip()
     clock.tick(60)
