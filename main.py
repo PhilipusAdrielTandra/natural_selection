@@ -4,6 +4,8 @@ import random
 from moth import Moth
 from food import Food
 import neat
+import sys
+import os
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -20,15 +22,13 @@ while running:
             running = False
     screen.fill("white")
 
-    for food in foods:
-        food.draw(screen)
-
     # Collision
     for moth in moths:
         moth.draw(screen)
         moth.move()
 
         for food in foods:
+            food.draw(screen, moths)
             if math.hypot(moth.x - food.x, moth.y - food.y) < moth.radius + food.size:
                 food.eaten = True
 

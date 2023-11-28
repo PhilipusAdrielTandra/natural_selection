@@ -11,8 +11,13 @@ class Moth:
         self.radius = 8
 
     def draw(self, win):
-        pygame.draw.circle(win, (0, 0, 0), (self.x, self.y), self.radius)
-        pygame.draw.circle(win, (0, 0, 0), (self.x + 8, self.y + 3), 4)
+        #SIMPLE DOMAIN
+        pygame.draw.circle(win, (100, 100, 100), (self.x, self.y), 50)
+        #moth
+        pygame.draw.circle(win, (255, 0, 0), (self.x, self.y), self.radius)
+        #fov
+        pygame.draw.line(win, (0, 255, 0), (self.x, self.y), (self.x - math.sin(self.angle) * 50, self.y + math.cos(self.angle) * 50), 3)
+        
 
     # RANDOM MOVEMENT
     def move(self):
@@ -59,3 +64,14 @@ class Moth:
     def turn_right(self):
         self.angle += 5
         self.angle %= 360
+    
+    # def reach(self, foods):
+    #     closest_distance = float('inf')
+    #     closest_moth = None
+
+    #     for food in foods:
+    #         distance_to_food = math.hypot(food.x - self.x, food.y - self.y)
+    #         if distance_to_food < closest_distance:
+    #             closest_distance = distance_to_food
+    #             closest_moth = food
+    #             return [closest_distance, (self.x, self.y), (food.x, food.y)] 
