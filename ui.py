@@ -64,14 +64,14 @@ class StatsScreen:
         stats_text = pygame.transform.rotate(stats_text, 90)
         pygame.draw.line(win, (0,0,0), (1170, y - 40), (1170, y + 310), 5)
         pygame.draw.line(win, (0,0,0), (1280, y - 40), (1280, y + 310), 5)
-        win.blit(stats_text, (self.x-self.margin - 90 , y)) 
+        win.blit(stats_text, (self.x-self.margin - 430, y)) 
 
         # Draw physical traits
         y = self.MENU_Y_POS + 180
         traits_list = ["Size: " + str(self.organism.size_factor), "Speed: " + str(self.organism.speed), "Eating radius: " + str(self.organism.eat_radius), "Vision radius: " + str(self.organism.vision_radius), "Vision angle: " + str(self.organism.vision_angle), "Max HP: " + str(self.organism.max_health)]
         for trait in traits_list:
             text = STAT_FONT.render(trait, 1, self.text_color)
-            win.blit(text, (self.x-self.margin+20 , y))
+            win.blit(text, (self.x-self.margin -  300 , y))
             y += 40
         # pygame.draw.rect(win, (0,0,0), pygame.Rect(self.x, self.MENU_Y_POS + 300, self.width, self.height), self.border_width)
 
@@ -80,7 +80,8 @@ class StatsScreen:
         stats_list = ["Energy: "+ str(round(self.organism.energy, 2)), "Angle: "+str(self.organism.angle), "Health: "+str(self.organism.health)]
         for stat in stats_list:
             text = STAT_FONT.render(stat, 1, self.text_color)
-            win.blit(text, (self.x+self.width+self.margin, y))
+            win.blit(text, (self.x+self.margin-75, y))
+            y += 50
  
     def draw_selected_org(self, surface):
         
@@ -89,7 +90,6 @@ class StatsScreen:
             pygame.draw.circle(surface, (0,0,0), (self.organism.x+self.organism.size[0]/2, self.organism.y+self.organism.size[1]/2), 20, 2)
 
     def draw_net(self, config, win, node_names=None, show_disabled=True, draw_node_names=False):
-        NN_FONT = pygame.font.SysFont("comicsans", 10)
         genome = self.organism.genome_ref
         
         if node_names is None:
@@ -147,7 +147,7 @@ class StatsScreen:
 
         # Draw key and parent keys
         if draw_node_names and False:
-            nn_key_text = NN_FONT.render("key: " + str(genome.key), 1, self.text_color)
+            nn_key_text = STAT_FONT.render("key: " + str(genome.key), 1, self.text_color)
             nn_parent_key1_text = NN_FONT.render("parent 1: " + str(genome.parent_key1), 1, self.text_color)
             nn_parent_key2_text = NN_FONT.render("parent 2: " + str(genome.parent_key2), 1, self.text_color)
             win.blit(nn_key_text, (x,y-6*margin))
@@ -159,7 +159,7 @@ class StatsScreen:
             
             if draw_node_names:
                 name = node_names.get(k, str(k))
-                nn_text = NN_FONT.render(name, 1, self.text_color)
+                nn_text = STAT_FONT.render(name, 1, self.text_color)
                 win.blit(nn_text, (x-nn_text.get_width()/2,y))
 
             y += 50
@@ -173,7 +173,7 @@ class StatsScreen:
 
             if draw_node_names:
                 name = node_names.get(k, str(k))
-                nn_text = NN_FONT.render(name, 1, self.text_color)
+                nn_text = STAT_FONT.render(name, 1, self.text_color)
                 win.blit(nn_text, (x,y))
 
             y += 50 

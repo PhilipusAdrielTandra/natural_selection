@@ -39,7 +39,7 @@ class Settings():
 
 class Map():
     def __init__(self):
-        self.INTERNAL_SURFACE_SIZE = (2500, 2500)
+        self.INTERNAL_SURFACE_SIZE = (3000, 3000)
         self.INTERNAL_SURFACE_SIZE_VECTOR = pygame.math.Vector2(self.INTERNAL_SURFACE_SIZE)
 
 map = Map()
@@ -73,7 +73,9 @@ def main(genomes, config):
     button_change_style = Button("Draw vision", (900, MENU_Y_HEIGHT+250), font_size=38, pressed=not settings.draw_vision_lines)
     button_draw_nn = Button("Draw nn", (900, MENU_Y_HEIGHT+320), font_size=38, pressed=not settings.draw_nn)
     button_draw_nn_node_names = Button("Node names", (900, MENU_Y_HEIGHT+390), font_size=38, pressed=not settings.draw_node_names)
-    button_exit = Button("Exit", (win.get_size()[0] - 100, 10), font_size=40, pressed=False)
+    button_exit = Button("EXIT", (win.get_size()[0] - 100, 20), font_size=40, pressed=False)
+    # button_zoom = Button("ZOOM", (win.get_size()[0] - 200, 100), font_size=40, pressed=False)
+    # button_unzoom = Button("UNZOOM", (win.get_size()[0] - 200, 180), font_size=40, pressed=False)
     foods = []
     
     for _ in range(800):
@@ -95,10 +97,22 @@ def main(genomes, config):
                 pygame.quit()
                 quit()
             
+            if event.type == pygame.MOUSEWHEEL:
+                if event.y < 0:
+                    camera.scale_down()
+                if event.y > 0:
+                    camera.scale_up()
+            
             if button_exit.click(event):
                 run = False
                 pygame.quit()
                 quit()
+            
+            # if button_zoom.click(event):
+            #     camera.scale_up()
+
+            # if button_unzoom.click(event):
+            #     camera.scale_down()
             
             if button_pause.click(event):
                 settings.paused = not settings.paused
@@ -124,13 +138,13 @@ def main(genomes, config):
                     camera.scale_up()
                 if event.key == pygame.K_e:
                     camera.scale_down()
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_UP or event.key == pygame.K_w:
                     camera.move_camera_up()
-                if event.key == pygame.K_DOWN:
+                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     camera.move_camera_down()
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     camera.move_camera_left()
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     camera.move_camera_right()
             
             if event.type == pygame.MOUSEBUTTONDOWN:
