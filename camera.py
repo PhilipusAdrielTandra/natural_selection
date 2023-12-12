@@ -1,10 +1,10 @@
 import os
 import pygame
 
-MENU_COLOR = (42, 205, 211)
-MENU_TEXT_COLOR = (255, 0, 0)
-MENU_Y_HEIGHT = 700 #650 # Height that seperates simulation from options tab
-STAT_FONT = pygame.font.SysFont("comicsans", 30)
+MENU_COLOR = (34, 116, 165)
+MENU_TEXT_COLOR = (255,255,255)
+MENU_Y_HEIGHT = 850 #650 # Height that seperates simulation from options tab
+STAT_FONT = pygame.font.Font("Afacad-Regular.ttf", 50)
 
 class Camera:
     def __init__(self, zoom_scale, settings, map):
@@ -66,15 +66,26 @@ class Camera:
         pygame.draw.line(win, "black", (0, MENU_Y_HEIGHT), (win.get_size()[0], MENU_Y_HEIGHT), 2)
         for button in buttons:
             button.draw(win) 
+
+        settings_text = STAT_FONT.render("SETTINGS", 1, MENU_TEXT_COLOR)
+        settings_text = pygame.transform.rotate(settings_text, 90)
+        pygame.draw.line(win, (0,0,0), (800, MENU_Y_HEIGHT), (800, MENU_Y_HEIGHT + 310), 5)
+        pygame.draw.line(win, (0,0,0), (650, MENU_Y_HEIGHT), (650, MENU_Y_HEIGHT + 310), 5)
+        win.blit(settings_text, (700, MENU_Y_HEIGHT + 45))
         
+        stats_text = STAT_FONT.render("STATISTICS", 1, MENU_TEXT_COLOR)
+        stats_text = pygame.transform.rotate(stats_text, 90)
         org_count_text = STAT_FONT.render("Organisms: " + str(len(organisms)), 1, MENU_TEXT_COLOR)
         gen_text = STAT_FONT.render("Generation: " + str(generation), 1, MENU_TEXT_COLOR)
         zoom_level_text = STAT_FONT.render("Zoom: " + str(self.zoom_scale), 1, MENU_TEXT_COLOR)
         angle_difference_text = STAT_FONT.render("Angle diff: " + str(round(angle_difference_stat)), 1, MENU_TEXT_COLOR)
-        win.blit(org_count_text, (20, MENU_Y_HEIGHT)) 
-        win.blit(gen_text, (20, MENU_Y_HEIGHT+30)) 
-        win.blit(zoom_level_text, (20, MENU_Y_HEIGHT+60)) 
-        win.blit(angle_difference_text, (20, MENU_Y_HEIGHT+90)) 
+        
+        pygame.draw.line(win, (0,0,0), (150, MENU_Y_HEIGHT), (150, MENU_Y_HEIGHT + 310), 5)
+        win.blit(stats_text, (40, MENU_Y_HEIGHT + 45)) 
+        win.blit(org_count_text, (200, MENU_Y_HEIGHT + 50)) 
+        win.blit(gen_text, (200, MENU_Y_HEIGHT+100)) 
+        win.blit(zoom_level_text, (200, MENU_Y_HEIGHT+150)) 
+        win.blit(angle_difference_text, (200, MENU_Y_HEIGHT+200)) 
 
         stats.draw_stats(win) 
         

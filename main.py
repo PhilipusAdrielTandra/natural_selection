@@ -16,8 +16,8 @@ from entity import Moth, Food
 
 pygame.font.init()
 MENU_Y_HEIGHT = 700 
-MENU_COLOR = (42, 205, 211)
-MENU_TEXT_COLOR = (255, 0, 0)
+MENU_COLOR = (34, 116, 165)
+MENU_TEXT_COLOR = (255,255,255)
 FPS = 60
 
 def get_population_size_from_file():
@@ -67,13 +67,13 @@ def main(genomes, config):
         #print( g.key, " = ", g.parent_key1, " + ", g.parent_key2)
 
     run = True
-    win = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    win = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
     clock = pygame.time.Clock()
-    button_pause = Button("Pause", (240, MENU_Y_HEIGHT+10), font_size=25)
-    button_change_style = Button("Draw vision", (240, MENU_Y_HEIGHT+50), font_size=25, pressed=not settings.draw_vision_lines)
-    button_draw_nn = Button("Draw nn", (240, MENU_Y_HEIGHT+90), font_size=25, pressed=not settings.draw_nn)
-    button_draw_nn_node_names = Button("Node names", (350, MENU_Y_HEIGHT+90), font_size=25, pressed=not settings.draw_node_names)
-    button_exit = Button("Exit", (win.get_size()[0] - 100, 10), font_size=25, pressed=False)
+    button_pause = Button("Pause", (900, MENU_Y_HEIGHT+180), font_size=38)
+    button_change_style = Button("Draw vision", (900, MENU_Y_HEIGHT+250), font_size=38, pressed=not settings.draw_vision_lines)
+    button_draw_nn = Button("Draw nn", (900, MENU_Y_HEIGHT+320), font_size=38, pressed=not settings.draw_nn)
+    button_draw_nn_node_names = Button("Node names", (900, MENU_Y_HEIGHT+390), font_size=38, pressed=not settings.draw_node_names)
+    button_exit = Button("Exit", (win.get_size()[0] - 100, 10), font_size=40, pressed=False)
     foods = []
     
     for _ in range(800):

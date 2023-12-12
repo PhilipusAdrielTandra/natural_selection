@@ -1,13 +1,13 @@
 import pygame
 import random
 pygame.font.init()
-STAT_FONT = pygame.font.SysFont("comicsans", 30)
+STAT_FONT = pygame.font.Font("Afacad-Regular.ttf", 30)
 
 class Button:
-    def __init__(self, text,  pos, font_size, bg_colors=["darkgreen", "red"], pressed=False):
+    def __init__(self, text,  pos, font_size, bg_colors=[(99,159,171), (187,205,229)], pressed=False):
         self.x, self.y = pos
         self.tick = 1 if pressed else 0
-        self.font = pygame.font.SysFont("comicsans", font_size)
+        self.font = pygame.font.Font("Afacad-Regular.ttf", font_size)
         self.colors = bg_colors
         self.bg = self.colors[self.tick]
         self.set_text(text, self.bg)
@@ -58,23 +58,29 @@ class StatsScreen:
  
     def draw_stats(self, win):
     
+        # Draw traits section title
+        y = self.MENU_Y_POS + 190
+        stats_text = STAT_FONT.render("ORGANISM STATS", 1, self.text_color)
+        stats_text = pygame.transform.rotate(stats_text, 90)
+        pygame.draw.line(win, (0,0,0), (1170, y - 40), (1170, y + 310), 5)
+        pygame.draw.line(win, (0,0,0), (1280, y - 40), (1280, y + 310), 5)
+        win.blit(stats_text, (self.x-self.margin - 90 , y)) 
+
         # Draw physical traits
-        y = self.MENU_Y_POS
-        traits_list = ["size: " + str(self.organism.size_factor), "speed: " + str(self.organism.speed), "eating radius: " + str(self.organism.eat_radius), "vision radius: " + str(self.organism.vision_radius), "vision angle: " + str(self.organism.vision_angle), "max HP: " + str(self.organism.max_health)]
+        y = self.MENU_Y_POS + 180
+        traits_list = ["Size: " + str(self.organism.size_factor), "Speed: " + str(self.organism.speed), "Eating radius: " + str(self.organism.eat_radius), "Vision radius: " + str(self.organism.vision_radius), "Vision angle: " + str(self.organism.vision_angle), "Max HP: " + str(self.organism.max_health)]
         for trait in traits_list:
-            text = pygame.font.SysFont("comicsans", 20).render(trait, 1, self.text_color)
-            win.blit(text, (self.x+self.margin, y))
-            y += 20
-        pygame.draw.rect(win, (0,0,0), pygame.Rect(self.x, self.MENU_Y_POS, self.width, self.heigth), self.border_width)
+            text = STAT_FONT.render(trait, 1, self.text_color)
+            win.blit(text, (self.x-self.margin+20 , y))
+            y += 40
+        # pygame.draw.rect(win, (0,0,0), pygame.Rect(self.x, self.MENU_Y_POS + 300, self.width, self.height), self.border_width)
 
         # Draw organism changing stats like energy
-        y = self.MENU_Y_POS
-        stats_list = ["energy: "+ str(round(self.organism.energy, 2)), "angle: "+str(self.organism.angle), "health: "+str(self.organism.health)]
+        y = self.MENU_Y_POS + 180
+        stats_list = ["Energy: "+ str(round(self.organism.energy, 2)), "Angle: "+str(self.organism.angle), "Health: "+str(self.organism.health)]
         for stat in stats_list:
             text = STAT_FONT.render(stat, 1, self.text_color)
             win.blit(text, (self.x+self.width+self.margin, y))
-            y += 50
-        pygame.draw.rect(win, (0,0,0), pygame.Rect(self.x+self.width-self.border_width, self.MENU_Y_POS, self.width, self.heigth), self.border_width)
  
     def draw_selected_org(self, surface):
         
