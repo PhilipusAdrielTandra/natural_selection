@@ -3,8 +3,8 @@ import pygame
 
 MENU_COLOR = (34, 116, 165)
 MENU_TEXT_COLOR = (255,255,255)
-MENU_Y_HEIGHT = 850 #650 # Height that seperates simulation from options tab
-STAT_FONT = pygame.font.Font("Afacad-Regular.ttf", 50)
+MENU_Y_HEIGHT = 720/1.5 #650 # Height that seperates simulation from options tab
+STAT_FONT = pygame.font.Font("Afacad-Regular.ttf", 30)
 
 class Camera:
     def __init__(self, zoom_scale, settings, map):
@@ -69,9 +69,9 @@ class Camera:
 
         settings_text = STAT_FONT.render("SETTINGS", 1, MENU_TEXT_COLOR)
         settings_text = pygame.transform.rotate(settings_text, 90)
-        pygame.draw.line(win, (0,0,0), (800, MENU_Y_HEIGHT), (800, MENU_Y_HEIGHT + 310), 5)
-        pygame.draw.line(win, (0,0,0), (650, MENU_Y_HEIGHT), (650, MENU_Y_HEIGHT + 310), 5)
-        win.blit(settings_text, (700, MENU_Y_HEIGHT + 45))
+        pygame.draw.line(win, (0,0,0), (400, MENU_Y_HEIGHT), (400, MENU_Y_HEIGHT + 310), 5)
+        pygame.draw.line(win, (0,0,0), (480, MENU_Y_HEIGHT), (480, MENU_Y_HEIGHT + 310), 5)
+        win.blit(settings_text, (425, MENU_Y_HEIGHT + 55))
         
         stats_text = STAT_FONT.render("STATISTICS", 1, MENU_TEXT_COLOR)
         stats_text = pygame.transform.rotate(stats_text, 90)
@@ -79,13 +79,16 @@ class Camera:
         gen_text = STAT_FONT.render("Generation: " + str(generation), 1, MENU_TEXT_COLOR)
         zoom_level_text = STAT_FONT.render("Zoom: " + str(self.zoom_scale), 1, MENU_TEXT_COLOR)
         angle_difference_text = STAT_FONT.render("Angle diff: " + str(round(angle_difference_stat)), 1, MENU_TEXT_COLOR)
+
+        pygame.draw.line(win, (0,0,0), (725, MENU_Y_HEIGHT), (725, MENU_Y_HEIGHT + 310), 5)
+        pygame.draw.line(win, (0,0,0), (825, MENU_Y_HEIGHT), (825, MENU_Y_HEIGHT + 310), 5)
         
-        pygame.draw.line(win, (0,0,0), (150, MENU_Y_HEIGHT), (150, MENU_Y_HEIGHT + 310), 5)
-        win.blit(stats_text, (40, MENU_Y_HEIGHT + 45)) 
-        win.blit(org_count_text, (200, MENU_Y_HEIGHT + 50)) 
-        win.blit(gen_text, (200, MENU_Y_HEIGHT+100)) 
-        win.blit(zoom_level_text, (200, MENU_Y_HEIGHT+150)) 
-        win.blit(angle_difference_text, (200, MENU_Y_HEIGHT+200)) 
+        pygame.draw.line(win, (0,0,0), (100, MENU_Y_HEIGHT), (100, MENU_Y_HEIGHT + 310), 5)
+        win.blit(stats_text, (30, MENU_Y_HEIGHT + 50)) 
+        win.blit(org_count_text, (150, MENU_Y_HEIGHT + 40)) 
+        win.blit(gen_text, (150, MENU_Y_HEIGHT+80)) 
+        win.blit(zoom_level_text, (150, MENU_Y_HEIGHT+120)) 
+        win.blit(angle_difference_text, (150, MENU_Y_HEIGHT+160)) 
 
         stats.draw_stats(win) 
         

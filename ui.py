@@ -45,7 +45,7 @@ class StatsScreen:
         self.WIN_HEIGHT = win_height
         self.MENU_Y_POS = menu_height
         self.MENU_HEIGHT = self.WIN_HEIGHT - self.MENU_Y_POS
-        self.x = self.WIN_WIDTH-400
+        self.x = self.WIN_WIDTH
         self.margin = 10
         self.text_color = text_color
         self.border_width = 2
@@ -59,19 +59,17 @@ class StatsScreen:
     def draw_stats(self, win):
     
         # Draw traits section title
-        y = self.MENU_Y_POS + 190
+        y = self.MENU_Y_POS + 150
         stats_text = STAT_FONT.render("ORGANISM STATS", 1, self.text_color)
         stats_text = pygame.transform.rotate(stats_text, 90)
-        pygame.draw.line(win, (0,0,0), (1170, y - 40), (1170, y + 310), 5)
-        pygame.draw.line(win, (0,0,0), (1280, y - 40), (1280, y + 310), 5)
-        win.blit(stats_text, (self.x-self.margin - 430, y)) 
+        win.blit(stats_text, (self.x-self.margin - 510, y + 100)) 
 
         # Draw physical traits
         y = self.MENU_Y_POS + 180
         traits_list = ["Size: " + str(self.organism.size_factor), "Speed: " + str(self.organism.speed), "Eating radius: " + str(self.organism.eat_radius), "Vision radius: " + str(self.organism.vision_radius), "Vision angle: " + str(self.organism.vision_angle), "Max HP: " + str(self.organism.max_health)]
         for trait in traits_list:
             text = STAT_FONT.render(trait, 1, self.text_color)
-            win.blit(text, (self.x-self.margin -  300 , y))
+            win.blit(text, (self.x-self.margin -  425 , y + 60))
             y += 40
         # pygame.draw.rect(win, (0,0,0), pygame.Rect(self.x, self.MENU_Y_POS + 300, self.width, self.height), self.border_width)
 
@@ -80,7 +78,7 @@ class StatsScreen:
         stats_list = ["Energy: "+ str(round(self.organism.energy, 2)), "Angle: "+str(self.organism.angle), "Health: "+str(self.organism.health)]
         for stat in stats_list:
             text = STAT_FONT.render(stat, 1, self.text_color)
-            win.blit(text, (self.x+self.margin-75, y))
+            win.blit(text, (self.x+self.margin-200, y + 60))
             y += 50
  
     def draw_selected_org(self, surface):

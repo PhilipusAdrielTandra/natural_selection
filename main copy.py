@@ -15,6 +15,9 @@ from camera import Camera
 from entity import Moth, Food
 
 pygame.font.init()
+
+
+
 MENU_COLOR = (34, 116, 165)
 MENU_TEXT_COLOR = (255,255,255)
 FPS = 60
@@ -50,12 +53,11 @@ def main(genomes, config):
     global generation
     generation += 1 
 
+
     run = True
-    win = pygame.display.set_mode((1280,720))
+    win = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
     SCREENWIDTH = pygame.display.get_surface().get_width()
     SCREENHEIGHT = pygame.display.get_surface().get_height()
-    pygame.display.set_caption('NATURAL SELECTION!!!')
-    MENU_Y_HEIGHT = SCREENHEIGHT/3 
     
     nets = []
     ge = []
@@ -66,19 +68,20 @@ def main(genomes, config):
         new_size = 1 if (g.parent_key1 is None or g.parent_key2 is None) else (all_orgsanism_dictonary[g.parent_key1].size_factor + all_orgsanism_dictonary[g.parent_key2].size_factor)/2
         new_speed = 0 if (g.parent_key1 is None or g.parent_key2 is None) else (all_orgsanism_dictonary[g.parent_key1].speed_factor + all_orgsanism_dictonary[g.parent_key2].speed_factor)/2
         new_vision = 0 if (g.parent_key1 is None or g.parent_key2 is None) else (all_orgsanism_dictonary[g.parent_key1].vision_factor + all_orgsanism_dictonary[g.parent_key2].vision_factor)/2
-        organisms.append(Moth(new_size, new_speed, new_vision, random.randrange(0, map.INTERNAL_SURFACE_SIZE[0]), MENU_Y_HEIGHT, g.key, g.parent_key1, g.parent_key2, g))
+        organisms.append(Moth(new_size, new_speed, new_vision, random.randrange(0, map.INTERNAL_SURFACE_SIZE[0]), SCREENHEIGHT, g.key, g.parent_key1, g.parent_key2, g))
         all_orgsanism_dictonary[g.key] = organisms[-1]
         g.fitness = 0
         ge.append(g)
         #print( g.key, " = ", g.parent_key1, " + ", g.parent_key2)
 
-
+    
+    
     clock = pygame.time.Clock()
-    button_pause = Button("Pause", (530, MENU_Y_HEIGHT+265), font_size=30)
-    button_change_style = Button("Draw vision", (530, MENU_Y_HEIGHT+315), font_size=30, pressed=not settings.draw_vision_lines)
-    button_draw_nn = Button("Draw nn", (530, MENU_Y_HEIGHT+365), font_size=30, pressed=not settings.draw_nn)
-    button_draw_nn_node_names = Button("Node names", (530, MENU_Y_HEIGHT+415), font_size=30, pressed=not settings.draw_node_names)
-    button_exit = Button("EXIT", (win.get_size()[0] - 100, 20), font_size=30, pressed=False)
+    button_pause = Button("Pause", (SCREENWIDTH/2.4, SCREENHEIGHT/0.5), font_size=38)
+    button_change_style = Button("Draw vision", (SCREENWIDTH/2.4, SCREENHEIGHT/0.760), font_size=38, pressed=not settings.draw_vision_lines)
+    button_draw_nn = Button("Draw nn", (SCREENWIDTH/2.4, SCREENHEIGHT/0.710), font_size=38, pressed=not settings.draw_nn)
+    button_draw_nn_node_names = Button("Node names", (SCREENWIDTH/2.4, SCREENHEIGHT/0.665), font_size=38, pressed=not settings.draw_node_names)
+    button_exit = Button("EXIT", (win.get_size()[0] - 100, 20), font_size=40, pressed=False)
     # button_zoom = Button("ZOOM", (win.get_size()[0] - 200, 100), font_size=40, pressed=False)
     # button_unzoom = Button("UNZOOM", (win.get_size()[0] - 200, 180), font_size=40, pressed=False)
     foods = []
@@ -91,7 +94,7 @@ def main(genomes, config):
     # all_food.extend(all_org)
     food_kd_tree = KdTree(all_food)
         
-    stats = StatsScreen(organisms[0], win.get_size()[0], win.get_size()[1], MENU_Y_HEIGHT, MENU_TEXT_COLOR)
+    stats = StatsScreen(organisms[0], win.get_size()[0], win.get_size()[1], SCREENHEIGHT, MENU_TEXT_COLOR)
     
     while run:
         clock.tick(FPS)
